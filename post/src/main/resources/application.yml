@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db_auth_server
+    username: [root]
+    password: [root]
+  jpa:
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082
+      client:
+        registration:
+          awuser-client-cercceCercer:
+#          Referencia o autentication server que prove a informação, totalmente customizavel
+            provider: auth
+  #          Nome do client
+            client-id: awuser
+            client-secret: 123456
+            authorization-grant-type: client_credentials
+            scope: users:read
+            client-name: awuser-client
+        provider:
+#          o auth, faz referencia ao nome da variavel provider setada na linha 18, caso o nome acima muda
+#          se faz necessário mudar o nome da variavel abaixo também.
+          auth:
+            issuer-uri: http://localhost:8082
+#          Exemplo, caso seja necessário mais de um scope
+#          scope: users:read, users:write
+server:
+  port: 8081
+  
+aw:
+  user-api:
+    url: 'http://localhost:8080'
+    encoded-credentials: 'YWRtaW5AZW1haWwuY29tOmFkbWlu'
